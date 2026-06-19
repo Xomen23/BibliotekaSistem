@@ -10,6 +10,10 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * Domenska klasa koja predstavlja tip članstva u biblioteci.
+ * 
+ * Tip članstva definiše cenu članarine i maksimalan broj stavki
+ * (knjiga) koje član sa tim tipom članstva sme istovremeno da poseduje.
  *
  * @author Petar
  */
@@ -20,9 +24,21 @@ public class TipClanstva implements ApstraktniDomenskiObjekat{
     private double cena;
     private int maksimalanBrojStavki;
 
+    /**
+     * Podrazumevani konstruktor.
+     */
     public TipClanstva() {
     }
 
+    /**
+     * Kreira novi tip članstva.
+     *
+     * @param idTipClanstva jedinstveni identifikator tipa članstva
+     * @param tip naziv tipa članstva (npr. "Standardni", "Premium")
+     * @param cena cena članarine za ovaj tip članstva
+     * @param maksimalanBrojStavki maksimalan broj stavki (knjiga) koje član
+     *        sa ovim tipom članstva sme istovremeno da pozajmi
+     */
     public TipClanstva(int idTipClanstva, String tip, double cena, int maksimalanBrojStavki) {
         this.idTipClanstva = idTipClanstva;
         this.tip = tip;
@@ -73,6 +89,12 @@ public class TipClanstva implements ApstraktniDomenskiObjekat{
         return hash;
     }
 
+    /**
+     * Dva tipa članstva se smatraju jednakim ukoliko imaju isti naziv tipa.
+     *
+     * @param obj objekat sa kojim se poredi
+     * @return {@code true} ako je naziv tipa jednak, inače {@code false}
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

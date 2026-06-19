@@ -10,6 +10,12 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * Domenska klasa koja predstavlja vezu između radnika i termina dežurstva
+ * na određeni datum.
+ * 
+ * Ova klasa modeluje asocijativnu (veznu) tabelu između Radnika
+ * i TerminDezurstva, sa dodatnim atributima datuma dežurstva
+ * i prisutnosti radnika tog dana.
  *
  * @author Petar
  */
@@ -20,9 +26,20 @@ public class ZaposleniTerminDezurstva implements ApstraktniDomenskiObjekat{
     private Date datumDezurstva;
     private boolean prisutnost;
 
+    /**
+     * Podrazumevani konstruktor.
+     */
     public ZaposleniTerminDezurstva() {
     }
 
+    /**
+     * Kreira novi zapis o dežurstvu radnika.
+     *
+     * @param radnik radnik koji je raspoređen na dežurstvo
+     * @param terminDezurstva termin dežurstva na koji je radnik raspoređen
+     * @param datumDezurstva datum kada se dežurstvo obavlja
+     * @param prisutnost {@code true} ukoliko je radnik bio prisutan, inače {@code false}
+     */
     public ZaposleniTerminDezurstva(Radnik radnik, TerminDezurstva terminDezurstva, Date datumDezurstva, boolean prisutnost) {
         this.radnik = radnik;
         this.terminDezurstva = terminDezurstva;
@@ -73,6 +90,13 @@ public class ZaposleniTerminDezurstva implements ApstraktniDomenskiObjekat{
         return hash;
     }
 
+    /**
+     * Dva zapisa se smatraju jednakim ukoliko se odnose na istog radnika,
+     * isti termin dežurstva i isti datum.
+     *
+     * @param obj objekat sa kojim se poredi
+     * @return {@code true} ako su radnik, termin dežurstva i datum jednaki, inače {@code false}
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

@@ -10,6 +10,11 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * Domenska klasa koja predstavlja termin dežurstva u biblioteci.
+ * 
+ * Termin dežurstva definiše smenu, opis i lokaciju na kojoj se
+ * dežurstvo obavlja, i može biti dodeljen jednom ili više radnika
+ * (preko klase ZaposleniTerminDezurstva).
  *
  * @author Petar
  */
@@ -20,9 +25,20 @@ public class TerminDezurstva implements ApstraktniDomenskiObjekat{
     private String opis;
     private String lokacija;
 
+    /**
+     * Podrazumevani konstruktor.
+     */
     public TerminDezurstva() {
     }
 
+    /**
+     * Kreira novi termin dežurstva.
+     *
+     * @param idTerminDezurstva jedinstveni identifikator termina dežurstva
+     * @param smena oznaka smene (npr. "Prepodne", "Popodne")
+     * @param opis opis termina dežurstva
+     * @param lokacija lokacija na kojoj se dežurstvo obavlja
+     */
     public TerminDezurstva(int idTerminDezurstva, String smena, String opis, String lokacija) {
         this.idTerminDezurstva = idTerminDezurstva;
         this.smena = smena;
@@ -73,6 +89,12 @@ public class TerminDezurstva implements ApstraktniDomenskiObjekat{
         return hash;
     }
 
+    /**
+     * Dva termina dežurstva se smatraju jednakim ukoliko imaju istu smenu i lokaciju.
+     *
+     * @param obj objekat sa kojim se poredi
+     * @return {@code true} ako su smena i lokacija jednaki, inače {@code false}
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

@@ -12,6 +12,12 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * Domenska klasa koja predstavlja pozajmicu knjiga u biblioteci.
+ * 
+ * Pozajmica povezuje Radnika koji je obradio pozajmicu, Clan}a
+ * kojem su knjige pozajmljene, i listu pojedinačnih stavki
+ * (StavkaPozajmice) koje predstavljaju konkretne pozajmljene knjige.
+ * Pozajmice se ne brišu iz sistema, već se čuvaju kao istorijski podaci.
  *
  * @author Petar
  */
@@ -29,9 +35,26 @@ public class Pozajmica implements ApstraktniDomenskiObjekat{
     private List<StavkaPozajmice> stavke = new ArrayList<>();
     //private SimpleDateFormat dateFormat = new SimpleDate(Format("yyyy-MM-dd");
 
+    /**
+     * Podrazumevani konstruktor.
+     */
     public Pozajmica() {
     }
 
+    /**
+     * Kreira novu pozajmicu sa svim potrebnim podacima.
+     *
+     * @param idPozajmica jedinstveni identifikator pozajmice
+     * @param datumPozajmice datum kada je pozajmica napravljena
+     * @param rokVracanja krajnji rok za vraćanje pozajmljenih knjiga
+     * @param status status pozajmice (npr. "Aktivna", "Zatvorena")
+     * @param nacinPreuzimanja način preuzimanja knjiga
+     * @param brojStavki broj pozajmljenih stavki (knjiga) u ovoj pozajmici
+     * @param ukupnaKazna ukupan iznos kazne za ovu pozajmicu
+     * @param radnik radnik koji je obradio pozajmicu
+     * @param clan član kojem su knjige pozajmljene
+     * @param stavke lista pojedinačnih stavki pozajmice
+     */
     public Pozajmica(int idPozajmica, Date datumPozajmice, Date rokVracanja, String status, String nacinPreuzimanja, int brojStavki, int ukupnaKazna, Radnik radnik, Clan clan, List<StavkaPozajmice> stavke) {
         this.idPozajmica = idPozajmica;
         this.datumPozajmice = datumPozajmice;
@@ -136,6 +159,12 @@ public class Pozajmica implements ApstraktniDomenskiObjekat{
         return hash;
     }
 
+    /**
+     * Dve pozajmice se smatraju jednakim ukoliko imaju isti datum pozajmice i istog člana.
+     *
+     * @param obj objekat sa kojim se poredi
+     * @return {@code true} ako su datum pozajmice i član jednaki, inače {@code false}
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

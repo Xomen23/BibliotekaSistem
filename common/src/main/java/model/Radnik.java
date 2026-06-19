@@ -10,6 +10,11 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * Domenska klasa koja predstavlja zaposlenog radnika biblioteke.
+ * 
+ * Radnik se prijavljuje u sistem korisničkim imenom i šifrom, i zadužen
+ * je za kreiranje i obradu pozajmica, kao i za rad tokom dodeljenih
+ * termina dežurstva.
  *
  * @author Petar
  */
@@ -23,9 +28,23 @@ public class Radnik implements ApstraktniDomenskiObjekat{
     private String brojTelefona;
     private String sifra;
 
+    /**
+     * Podrazumevani konstruktor.
+     */
     public Radnik() {
     }
 
+    /**
+     * Kreira novog radnika sa svim potrebnim podacima.
+     *
+     * @param idRadnik jedinstveni identifikator radnika
+     * @param ime ime radnika
+     * @param prezime prezime radnika
+     * @param jmbg jedinstveni matični broj građana
+     * @param korisnickoIme korisničko ime za prijavu u sistem
+     * @param brojTelefona kontakt telefon radnika
+     * @param sifra šifra (lozinka) za prijavu u sistem
+     */
     public Radnik(int idRadnik, String ime, String prezime, String jmbg, String korisnickoIme, String brojTelefona, String sifra) {
         this.idRadnik = idRadnik;
         this.ime = ime;
@@ -103,6 +122,13 @@ public class Radnik implements ApstraktniDomenskiObjekat{
         return hash;
     }
 
+    /**
+     * Dva radnika se smatraju jednakim ukoliko imaju isto korisničko ime i šifru.
+     * Ova metoda se koristi i pri prijavi radnika u sistem (login).
+     *
+     * @param obj objekat sa kojim se poredi
+     * @return {@code true} ako su korisničko ime i šifra jednaki, inače {@code false}
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

@@ -10,6 +10,10 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * Domenska klasa koja predstavlja knjigu u fondu biblioteke.
+ * 
+ * Svaka knjiga je jedinstveno određena svojim ISBN brojem, koji se
+ * koristi i kao kriterijum jednakosti dve instance ove klase.
  *
  * @author Petar
  */
@@ -21,9 +25,21 @@ public class Knjiga implements ApstraktniDomenskiObjekat{
     private String isbn;
     private String zanr;
 
+    /**
+     * Podrazumevani konstruktor.
+     */
     public Knjiga() {
     }
 
+    /**
+     * Kreira novu knjigu sa svim potrebnim podacima.
+     *
+     * @param idKnjiga jedinstveni identifikator knjige
+     * @param naziv naziv knjige
+     * @param autor autor knjige
+     * @param isbn ISBN broj knjige
+     * @param zanr žanr kojem knjiga pripada
+     */
     public Knjiga(int idKnjiga, String naziv, String autor, String isbn, String zanr) {
         this.idKnjiga = idKnjiga;
         this.naziv = naziv;
@@ -83,6 +99,12 @@ public class Knjiga implements ApstraktniDomenskiObjekat{
         return hash;
     }
 
+    /**
+     * Dve knjige se smatraju jednakim ukoliko imaju isti ISBN broj.
+     *
+     * @param obj objekat sa kojim se poredi
+     * @return {@code true} ako su ISBN brojevi jednaki, inače {@code false}
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

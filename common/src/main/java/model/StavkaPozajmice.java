@@ -11,6 +11,11 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * Domenska klasa koja predstavlja jednu stavku (pojedinačnu knjigu) u okviru pozajmice.
+ * 
+ * Stavka pozajmice povezuje konkretnu Knjigu sa Pozajmicom
+ * kojoj pripada, i prati da li je knjiga vraćena, kada, i da li je
+ * za nju zaračunata kazna zbog kašnjenja.
  *
  * @author Petar
  */
@@ -23,9 +28,22 @@ public class StavkaPozajmice implements ApstraktniDomenskiObjekat{
     private int kazna;
     private Knjiga knjiga;
 
+    /**
+     * Podrazumevani konstruktor.
+     */
     public StavkaPozajmice() {
     }
 
+    /**
+     * Kreira novu stavku pozajmice.
+     *
+     * @param rb redni broj stavke unutar pozajmice
+     * @param pozajmica pozajmica kojoj ova stavka pripada
+     * @param datumVracanja datum kada je knjiga vraćena, ili {@code null} ako još nije vraćena
+     * @param vraceno {@code true} ukoliko je knjiga vraćena, inače {@code false}
+     * @param kazna iznos kazne za ovu stavku zbog kašnjenja u vraćanju
+     * @param knjiga pozajmljena knjiga
+     */
     public StavkaPozajmice(int rb, Pozajmica pozajmica, Date datumVracanja, boolean vraceno, int kazna, Knjiga knjiga) {
         this.rb = rb;
         this.pozajmica = pozajmica;
@@ -94,6 +112,13 @@ public class StavkaPozajmice implements ApstraktniDomenskiObjekat{
         return hash;
     }
 
+    /**
+     * Dve stavke pozajmice se smatraju jednakim ukoliko imaju isti redni broj
+     * i pripadaju istoj pozajmici.
+     *
+     * @param obj objekat sa kojim se poredi
+     * @return {@code true} ako su redni broj i pozajmica jednaki, inače {@code false}
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

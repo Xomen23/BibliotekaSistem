@@ -10,6 +10,11 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * Domenska klasa koja predstavlja člana biblioteke.
+ * 
+ * Član biblioteke poseduje osnovne lične podatke (ime, prezime, email, broj telefona)
+ * i ima dodeljen TipClanstva koji definiše uslove i ograničenja njegovog
+ * članstva (cena, maksimalan broj stavki koje može pozajmiti).
  *
  * @author Petar
  */
@@ -22,9 +27,23 @@ public class Clan implements ApstraktniDomenskiObjekat{
     private String brojTelefona;
     private TipClanstva tipClanstva;
 
+    /**
+     * Podrazumevani konstruktor, potreban za kreiranje praznog objekta
+     * (npr. pri popunjavanju iz formi pre slanja na server).
+     */
     public Clan() {
     }
 
+    /**
+     * Kreira novog člana biblioteke sa svim potrebnim podacima.
+     *
+     * @param idClan jedinstveni identifikator člana
+     * @param ime ime člana
+     * @param prezime prezime člana
+     * @param email email adresa člana
+     * @param brojTelefona kontakt telefon člana
+     * @param tipClanstva tip članstva dodeljen ovom članu
+     */
     public Clan(int idClan, String ime, String prezime, String email, String brojTelefona, TipClanstva tipClanstva) {
         this.idClan = idClan;
         this.ime = ime;
@@ -95,6 +114,12 @@ public class Clan implements ApstraktniDomenskiObjekat{
 
     // MOZDA moze dodas i email da mora bude isti za equals
     
+    /**
+     * Dva člana se smatraju jednakim ukoliko imaju isto ime i prezime.
+     *
+     * @param obj objekat sa kojim se poredi
+     * @return {@code true} ako su ime i prezime jednaki, inače {@code false}
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
