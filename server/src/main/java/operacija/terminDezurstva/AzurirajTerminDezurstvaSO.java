@@ -1,0 +1,41 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package operacija.terminDezurstva;
+
+import model.TerminDezurstva;
+import operacija.ApstraktnaGenerickaOperacija;
+
+/**
+ *
+ * @author Petar
+ */
+public class AzurirajTerminDezurstvaSO extends ApstraktnaGenerickaOperacija {
+
+    @Override
+    protected void preduslovi(Object param) throws Exception {
+        
+        if(param == null || !(param instanceof TerminDezurstva)){
+            throw new Exception("Sistem nije mogao da izmeni dezurstvo");
+        }
+
+        TerminDezurstva td = (TerminDezurstva) param;
+        if(td.getSmena() == null || td.getSmena().isEmpty()){
+            throw new Exception("GRESKA SMENA");
+        }
+        if(td.getOpis() == null || td.getOpis().isEmpty()){
+            throw new Exception("GRESKA OPIS");
+        }
+        if(td.getLokacija() == null || td.getLokacija().isEmpty()){
+            throw new Exception("GRESKA LOKACIJA");
+        }
+        
+    }
+
+    @Override
+    protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
+        broker.edit((TerminDezurstva)param);
+    }
+    
+}
