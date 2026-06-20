@@ -43,6 +43,7 @@ public class PrikazKnjigaForma extends javax.swing.JFrame {
         jTextFieldNaziv = new javax.swing.JTextField();
         jTextFieldAutor = new javax.swing.JTextField();
         jButtonResetujPretragu = new javax.swing.JButton();
+        jButtonIzvezuJson = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -93,6 +94,13 @@ public class PrikazKnjigaForma extends javax.swing.JFrame {
             }
         });
 
+        jButtonIzvezuJson.setText("Izvezi u JSON");
+        jButtonIzvezuJson.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIzvezuJsonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -121,7 +129,8 @@ public class PrikazKnjigaForma extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonAzuriraj, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonResetujPretragu, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonResetujPretragu, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonIzvezuJson, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(54, 54, 54))
         );
         layout.setVerticalGroup(
@@ -143,8 +152,10 @@ public class PrikazKnjigaForma extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
-                        .addComponent(jButtonAzuriraj, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addComponent(jButtonAzuriraj, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(jButtonIzvezuJson, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(60, 60, 60))
         );
@@ -168,6 +179,10 @@ public class PrikazKnjigaForma extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonResetujPretraguActionPerformed
 
+    private void jButtonIzvezuJsonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIzvezuJsonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonIzvezuJsonActionPerformed
+
     public JTable getjTableKnjige() {
         return jTableKnjige;
     }
@@ -184,6 +199,7 @@ public class PrikazKnjigaForma extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAzuriraj;
     private javax.swing.JButton jButtonObrisi;
     private javax.swing.JButton jButtonPretrazi;
+    private javax.swing.JButton jButtonIzvezuJson;
     private javax.swing.JButton jButtonResetujPretragu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -217,6 +233,16 @@ public class PrikazKnjigaForma extends javax.swing.JFrame {
         
         jButtonResetujPretragu.addActionListener(actionListener);
         
+    }
+
+    public void addBtnIzvezuJsonActionListener(ActionListener actionListener) {
+
+        jButtonIzvezuJson.addActionListener(actionListener);
+
+    }
+
+    public JButton getjButtonIzvezuJson() {
+        return jButtonIzvezuJson;
     }
 
     public JTextField getjTextFieldAutor() {

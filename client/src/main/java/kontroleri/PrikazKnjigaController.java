@@ -4,12 +4,17 @@
  */
 package kontroleri;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import cordinator.Cordinator;
 import forme.PrikazKnjigaForma;
 import forme.model.ModelTabeleKnjiga;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import komunikacija.Komunikacija;
 import model.Knjiga;
@@ -112,8 +117,47 @@ public class PrikazKnjigaController {
                 
             }
         });
+
+        pkf.addBtnIzvezuJsonActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                izvezuKnjigeUJson();
+            }
+        });
         
         
+    }
+
+
+    private void izvezuKnjigeUJson() {
+
+        ModelTabeleKnjiga mtk = (ModelTabeleKnjiga) pkf.getjTableKnjige().getModel();
+        List<Knjiga> knjige = mtk.getLista();
+
+        if (knjige == null || knjige.isEmpty()) {
+            JOptionPane.showMessageDialog(pkf, "Nema knjiga za izvoz", "GRESKA", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setSelectedFile(new java.io.File("knjige_export.json"));
+        int rezultat = fileChooser.showSaveDialog(pkf);
+
+        if (rezultat != JFileChooser.APPROVE_OPTION) {
+            return;
+        }
+
+        java.io.File fajl = fileChooser.getSelectedFile();
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        try (FileWriter writer = new FileWriter(fajl)) {
+            gson.toJson(knjige, writer);
+            JOptionPane.showMessageDialog(pkf, "Knjige su uspesno izvezene u JSON fajl:\n" + fajl.getAbsolutePath(), "USPEH", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(pkf, "Doslo je do greske prilikom izvoza: " + ex.getMessage(), "GRESKA", JOptionPane.ERROR_MESSAGE);
+        }
+
     }
     
 
