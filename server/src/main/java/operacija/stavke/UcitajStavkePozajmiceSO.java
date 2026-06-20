@@ -11,6 +11,7 @@ import model.StavkaPozajmice;
 import operacija.ApstraktnaGenerickaOperacija;
 
 /**
+ * Sistemska operacija za ucitavanje liste stavki pozajmice, po pozajmici ili po clanu.
  *
  * @author Petar
  */
@@ -22,10 +23,23 @@ public class UcitajStavkePozajmiceSO extends ApstraktnaGenerickaOperacija {
         return stavke;
     }
 
+    /**
+     * Ova operacija nema dodatnih preduslova.
+     *
+     * @param param objekat koji se proverava
+     * @throws Exception ukoliko neki od preduslova nije ispunjen
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
     }
 
+    /**
+     * Ucitava stavke pozajmice iz baze podataka. Ukoliko je prosledjeni kljuc jednak "clan", ucitavaju se sve stavke za zadatog clana, u suprotnom se ucitavaju stavke za zadatu pozajmicu.
+     *
+     * @param param objekat nad kojim se izvrsava operacija
+     * @param kljuc dodatni kljuc/kriterijum koriscen za odredjivanje nacina izvrsavanja
+     * @throws Exception ukoliko dodje do greske pri izvrsavanju operacije
+     */
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
         

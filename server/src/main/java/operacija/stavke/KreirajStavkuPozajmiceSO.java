@@ -10,11 +10,18 @@ import model.StavkaPozajmice;
 import operacija.ApstraktnaGenerickaOperacija;
 
 /**
+ * Sistemska operacija za kreiranje nove stavke pozajmice.
  *
  * @author Petar
  */
 public class KreirajStavkuPozajmiceSO extends ApstraktnaGenerickaOperacija {
 
+    /**
+     * Proverava da li je prosledjen objekat tipa StavkaPozajmice i da li su pozajmica i knjiga postavljene, kao i da su redni broj i kazna validni.
+     *
+     * @param param objekat koji se proverava
+     * @throws Exception ukoliko neki od preduslova nije ispunjen
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         if(param == null || !(param instanceof StavkaPozajmice)){
@@ -36,6 +43,13 @@ public class KreirajStavkuPozajmiceSO extends ApstraktnaGenerickaOperacija {
         }
     }
 
+    /**
+     * Dodaje novu stavku pozajmice u bazu podataka.
+     *
+     * @param param objekat nad kojim se izvrsava operacija
+     * @param kljuc dodatni kljuc/kriterijum koriscen za odredjivanje nacina izvrsavanja
+     * @throws Exception ukoliko dodje do greske pri izvrsavanju operacije
+     */
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
         broker.add((StavkaPozajmice)param);

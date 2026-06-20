@@ -8,6 +8,7 @@ import model.Radnik;
 import operacija.ApstraktnaGenerickaOperacija;
 
 /**
+ * Sistemska operacija za kreiranje novog radnika biblioteke.
  *
  * @author Petar
  */
@@ -16,6 +17,12 @@ public class KreirajRadnikaSO extends ApstraktnaGenerickaOperacija {
     
     
     
+    /**
+     * Proverava da li je prosledjen objekat tipa Radnik i da li su ime, prezime, korisnicko ime, broj telefona i sifra popunjeni, kao i da JMBG ima tacno 13 karaktera.
+     *
+     * @param param objekat koji se proverava
+     * @throws Exception ukoliko neki od preduslova nije ispunjen
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         if(param == null || !(param instanceof Radnik)){
@@ -49,6 +56,13 @@ public class KreirajRadnikaSO extends ApstraktnaGenerickaOperacija {
         
     }
 
+    /**
+     * Dodaje novog radnika u bazu podataka.
+     *
+     * @param param objekat nad kojim se izvrsava operacija
+     * @param kljuc dodatni kljuc/kriterijum (nije obavezno koriscen u ovoj operaciji)
+     * @throws Exception ukoliko dodje do greske pri izvrsavanju operacije
+     */
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
         broker.add((Radnik)param);

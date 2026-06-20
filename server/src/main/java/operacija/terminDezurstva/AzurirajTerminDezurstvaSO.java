@@ -8,11 +8,18 @@ import model.TerminDezurstva;
 import operacija.ApstraktnaGenerickaOperacija;
 
 /**
+ * Sistemska operacija za izmenu postojeceg termina dezurstva.
  *
  * @author Petar
  */
 public class AzurirajTerminDezurstvaSO extends ApstraktnaGenerickaOperacija {
 
+    /**
+     * Proverava da li je prosledjen objekat tipa TerminDezurstva i da li su smena, opis i lokacija popunjeni.
+     *
+     * @param param objekat koji se proverava
+     * @throws Exception ukoliko neki od preduslova nije ispunjen
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         
@@ -33,6 +40,13 @@ public class AzurirajTerminDezurstvaSO extends ApstraktnaGenerickaOperacija {
         
     }
 
+    /**
+     * Azurira podatke postojeceg termina dezurstva u bazi podataka.
+     *
+     * @param param objekat nad kojim se izvrsava operacija
+     * @param kljuc dodatni kljuc/kriterijum (nije obavezno koriscen u ovoj operaciji)
+     * @throws Exception ukoliko dodje do greske pri izvrsavanju operacije
+     */
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
         broker.edit((TerminDezurstva)param);

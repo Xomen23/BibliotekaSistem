@@ -8,11 +8,18 @@ import model.Clan;
 import operacija.ApstraktnaGenerickaOperacija;
 
 /**
+ * Sistemska operacija za izmenu postojeceg clana biblioteke.
  *
  * @author Petar
  */
 public class AzurirajClanaSO extends ApstraktnaGenerickaOperacija {
 
+    /**
+     * Proverava da li je prosledjen objekat tipa Clan i da li su ime, prezime, email i broj telefona popunjeni, kao i da je dodeljen tip clanstva.
+     *
+     * @param param objekat koji se proverava
+     * @throws Exception ukoliko neki od preduslova nije ispunjen
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         
@@ -39,6 +46,13 @@ public class AzurirajClanaSO extends ApstraktnaGenerickaOperacija {
         
     }
 
+    /**
+     * Azurira podatke postojeceg clana u bazi podataka.
+     *
+     * @param param objekat nad kojim se izvrsava operacija
+     * @param kljuc dodatni kljuc/kriterijum (nije obavezno koriscen u ovoj operaciji)
+     * @throws Exception ukoliko dodje do greske pri izvrsavanju operacije
+     */
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
         broker.edit((Clan)param);

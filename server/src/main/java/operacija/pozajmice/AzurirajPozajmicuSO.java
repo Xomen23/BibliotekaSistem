@@ -9,11 +9,18 @@ import model.StavkaPozajmice;
 import operacija.ApstraktnaGenerickaOperacija;
 
 /**
+ * Sistemska operacija za izmenu postojece pozajmice.
  *
  * @author Petar
  */
 public class AzurirajPozajmicuSO extends ApstraktnaGenerickaOperacija {
 
+    /**
+     * Proverava da li je prosledjen objekat tipa Pozajmica i da li su datum pozajmice, rok vracanja, status, nacin preuzimanja, clan i radnik popunjeni, kao i da broj stavki i ukupna kazna nisu negativni.
+     *
+     * @param param objekat koji se proverava
+     * @throws Exception ukoliko neki od preduslova nije ispunjen
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         
@@ -49,6 +56,13 @@ public class AzurirajPozajmicuSO extends ApstraktnaGenerickaOperacija {
         
     }
 
+    /**
+     * Azurira podatke postojece pozajmice, brise sve njene stare stavke i ponovo dodaje aktuelnu listu stavki.
+     *
+     * @param param objekat nad kojim se izvrsava operacija
+     * @param kljuc dodatni kljuc/kriterijum koriscen za odredjivanje nacina izvrsavanja
+     * @throws Exception ukoliko dodje do greske pri izvrsavanju operacije
+     */
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
         

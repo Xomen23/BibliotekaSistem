@@ -10,11 +10,18 @@ import model.StavkaPozajmice;
 import operacija.ApstraktnaGenerickaOperacija;
 
 /**
+ * Sistemska operacija za brisanje stavke pozajmice.
  *
  * @author Petar
  */
 public class ObrisiStavkuPozajmiceSO extends ApstraktnaGenerickaOperacija {
 
+    /**
+     * Proverava da li je prosledjen objekat tipa StavkaPozajmice.
+     *
+     * @param param objekat koji se proverava
+     * @throws Exception ukoliko neki od preduslova nije ispunjen
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         
@@ -24,6 +31,13 @@ public class ObrisiStavkuPozajmiceSO extends ApstraktnaGenerickaOperacija {
         
     }
 
+    /**
+     * Brise stavku pozajmice iz baze podataka i azurira broj stavki i ukupnu kaznu pripadajuce pozajmice na osnovu preostalih stavki.
+     *
+     * @param param objekat nad kojim se izvrsava operacija
+     * @param kljuc dodatni kljuc/kriterijum koriscen za odredjivanje nacina izvrsavanja
+     * @throws Exception ukoliko dodje do greske pri izvrsavanju operacije
+     */
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
 
