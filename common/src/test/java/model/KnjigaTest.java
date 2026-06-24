@@ -2,98 +2,139 @@ package model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * JUnit testovi za domensku klasu {@link Knjiga}.
- *
- * @author Petar
- */
 class KnjigaTest {
 
     private Knjiga knjiga;
 
     @BeforeEach
-    void setUp() {
-        knjiga = new Knjiga(1, "Na Drini cuprija", "Ivo Andric", "978-86-7102-303-3", "Roman");
+    void setUp() throws Exception {
+        knjiga = new Knjiga(1, "Na Drini cuprija", "Ivo Andric", "9788671023033", "Roman");
     }
 
     @Test
-    void testKonstruktorIGeteri() {
+    void konstruktorSetujeSvaPolja() {
         assertEquals(1, knjiga.getIdKnjiga());
         assertEquals("Na Drini cuprija", knjiga.getNaziv());
         assertEquals("Ivo Andric", knjiga.getAutor());
-        assertEquals("978-86-7102-303-3", knjiga.getIsbn());
+        assertEquals("9788671023033", knjiga.getIsbn());
         assertEquals("Roman", knjiga.getZanr());
     }
 
     @Test
-    void testSeteri() {
-        Knjiga k = new Knjiga();
-        k.setIdKnjiga(2);
-        k.setNaziv("Prokleta avlija");
-        k.setAutor("Ivo Andric");
-        k.setIsbn("978-86-7102-304-0");
-        k.setZanr("Novela");
+    void setIdKnjigaSetujePravilno() {
+        knjiga.setIdKnjiga(99);
+        assertEquals(99, knjiga.getIdKnjiga());
+    }
 
-        assertEquals(2, k.getIdKnjiga());
-        assertEquals("Prokleta avlija", k.getNaziv());
-        assertEquals("Ivo Andric", k.getAutor());
-        assertEquals("978-86-7102-304-0", k.getIsbn());
-        assertEquals("Novela", k.getZanr());
+    @ParameterizedTest
+    @NullAndEmptySource
+    void setNazivBacaGreskuZaNullIPrazno(String naziv) {
+        assertThrows(Exception.class, () -> knjiga.setNaziv(naziv));
     }
 
     @Test
-    void testToString() {
+    void setNazivSetujePravilno() throws Exception {
+        knjiga.setNaziv("Novi naziv");
+        assertEquals("Novi naziv", knjiga.getNaziv());
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    void setAutorBacaGreskuZaNullIPrazno(String autor) {
+        assertThrows(Exception.class, () -> knjiga.setAutor(autor));
+    }
+
+    @Test
+    void setAutorSetujePravilno() throws Exception {
+        knjiga.setAutor("Novi autor");
+        assertEquals("Novi autor", knjiga.getAutor());
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    void setIsbnBacaGreskuZaNullIPrazno(String isbn) {
+        assertThrows(Exception.class, () -> knjiga.setIsbn(isbn));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"123", "12345678901234", "isbn"})
+    void setIsbnBacaGreskuZaPogresnuDuzinu(String isbn) {
+        assertThrows(Exception.class, () -> knjiga.setIsbn(isbn));
+    }
+
+    @Test
+    void setIsbnSetujePravilno() throws Exception {
+        knjiga.setIsbn("9780000000002");
+        assertEquals("9780000000002", knjiga.getIsbn());
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    void setZanrBacaGreskuZaNullIPrazno(String zanr) {
+        assertThrows(Exception.class, () -> knjiga.setZanr(zanr));
+    }
+
+    @Test
+    void setZanrSetujePravilno() throws Exception {
+        knjiga.setZanr("Poezija");
+        assertEquals("Poezija", knjiga.getZanr());
+    }
+
+    @Test
+    void toStringVracaNaziv() {
         assertEquals("Na Drini cuprija", knjiga.toString());
     }
 
-    @Test
-    void testEqualsIstiIsbn() {
-        Knjiga druga = new Knjiga(99, "Drugi naziv", "Drugi autor", "978-86-7102-303-3", "Drugi zanr");
-        assertEquals(knjiga, druga);
-    }
-
-    @Test
-    void testEqualsRazlicitIsbn() {
-        Knjiga druga = new Knjiga(1, "Na Drini cuprija", "Ivo Andric", "000-00-0000-000-0", "Roman");
+    @ParameterizedTest
+    @ValueSource(strings = {"9780000000002", "9780000000019", "9780000000026"})
+    void equalsVracaFalseZaRazlicitIsbn(String isbn) throws Exception {
+        Knjiga druga = new Knjiga(1, "Na Drini cuprija", "Ivo Andric", isbn, "Roman");
         assertNotEquals(knjiga, druga);
     }
 
     @Test
-    void testEqualsNull() {
+    void equalsVracaTrueZaIstiIsbn() throws Exception {
+        Knjiga druga = new Knjiga(99, "Drugi naziv", "Drugi autor", "9788671023033", "Drugi zanr");
+        assertEquals(knjiga, druga);
+    }
+
+    @Test
+    void equalsVracaFalseZaNull() {
         assertNotEquals(null, knjiga);
     }
 
     @Test
-    void testEqualsRazlicitaKlasa() {
-        assertNotEquals("Na Drini cuprija", knjiga);
+    void equalsVracaTrueZaIsteReference() {
+        assertEquals(knjiga, knjiga);
     }
 
     @Test
-    void testVratiNazivTabele() {
+    void vratiNazivTabeleVracaKnjiga() {
         assertEquals("knjiga", knjiga.vratiNazivTabele());
     }
 
     @Test
-    void testVratiKoloneZaUbacivanje() {
+    void vratiKoloneZaUbacivanje() {
         assertEquals("naziv, autor, isbn, zanr", knjiga.vratiKoloneZaUbacivanje());
     }
 
     @Test
-    void testVratiVrednostiZaUbacivanje() {
-        String ocekivano = "'Na Drini cuprija', 'Ivo Andric', '978-86-7102-303-3', 'Roman'";
-        assertEquals(ocekivano, knjiga.vratiVrednostiZaUbacivanje());
+    void vratiVrednostiZaUbacivanje() {
+        assertEquals("'Na Drini cuprija', 'Ivo Andric', '9788671023033', 'Roman'", knjiga.vratiVrednostiZaUbacivanje());
     }
 
     @Test
-    void testVratiPrimarniKljuc() {
+    void vratiPrimarniKljuc() {
         assertEquals("knjiga.idKnjiga=1", knjiga.vratiPrimarniKljuc());
     }
 
     @Test
-    void testVratiVrednostiZaIzmenu() {
-        String ocekivano = "naziv='Na Drini cuprija', autor='Ivo Andric', isbn='978-86-7102-303-3', zanr='Roman'";
-        assertEquals(ocekivano, knjiga.vratiVrednostiZaIzmenu());
+    void vratiVrednostiZaIzmenu() {
+        assertEquals("naziv='Na Drini cuprija', autor='Ivo Andric', isbn='9788671023033', zanr='Roman'", knjiga.vratiVrednostiZaIzmenu());
     }
 }

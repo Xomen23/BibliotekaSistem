@@ -15,6 +15,9 @@ buildNumber.properties
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+<<<<<<< HEAD
 .doc
 .html
+=======
+>>>>>>> refs/heads/fix/feedback
 /doc/
