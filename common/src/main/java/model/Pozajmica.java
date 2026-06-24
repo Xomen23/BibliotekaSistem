@@ -45,7 +45,6 @@ public class Pozajmica implements ApstraktniDomenskiObjekat {
      * @param radnik radnik koji je obradio pozajmicu, ne sme biti null
      * @param clan clan kome su knjige pozajmljene, ne sme biti null
      * @param stavke lista stavki pozajmice
-     * @throws Exception ako je neka od vrednosti nevalidna
      */
     public Pozajmica(int idPozajmica, Date datumPozajmice, Date rokVracanja, String status,
             String nacinPreuzimanja, int brojStavki, int ukupnaKazna,

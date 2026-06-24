@@ -32,7 +32,6 @@ public class TerminDezurstva implements ApstraktniDomenskiObjekat {
      * @param smena oznaka smene
      * @param opis opis termina dezurstva
      * @param lokacija lokacija na kojoj se dezurstvo obavlja
-     * @throws Exception ako je neka od vrednosti nevalidna
      */
     public TerminDezurstva(int idTerminDezurstva, String smena, String opis, String lokacija) {
     	

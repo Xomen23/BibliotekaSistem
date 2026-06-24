@@ -33,7 +33,6 @@ public class Knjiga implements ApstraktniDomenskiObjekat {
      * @param autor autor knjige
      * @param isbn ISBN broj knjige, mora imati tacno 13 karaktera
      * @param zanr zanr knjige
-     * @throws Exception ako je neka od vrednosti nevalidna
      */
     public Knjiga(int idKnjiga, String naziv, String autor, String isbn, String zanr) {
     	

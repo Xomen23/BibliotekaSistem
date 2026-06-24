@@ -32,7 +32,6 @@ public class TipClanstva implements ApstraktniDomenskiObjekat {
      * @param tip naziv tipa clanstva
      * @param cena cena clanarine, mora biti veca od nule
      * @param maksimalanBrojStavki maksimalan broj stavki, mora biti veci od nule
-     * @throws Exception ako je neka od vrednosti nevalidna
      */
     public TipClanstva(int idTipClanstva, String tip, double cena, int maksimalanBrojStavki) {
     	

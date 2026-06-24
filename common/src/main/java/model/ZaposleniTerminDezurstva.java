@@ -31,7 +31,6 @@ public class ZaposleniTerminDezurstva implements ApstraktniDomenskiObjekat {
      * @param terminDezurstva termin dezurstva, ne sme biti null
      * @param datumDezurstva datum dezurstva, ne sme biti null
      * @param prisutnost true ako je radnik bio prisutan
-     * @throws Exception ako je neka od vrednosti nevalidna
      */
     public ZaposleniTerminDezurstva(Radnik radnik, TerminDezurstva terminDezurstva, Date datumDezurstva, boolean prisutnost) {
     	try {

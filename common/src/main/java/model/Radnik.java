@@ -37,7 +37,6 @@ public class Radnik implements ApstraktniDomenskiObjekat {
      * @param korisnickoIme korisnicko ime za prijavu u sistem
      * @param brojTelefona kontakt telefon radnika
      * @param sifra sifra za prijavu u sistem
-     * @throws Exception ako je neka od vrednosti nevalidna
      */
     public Radnik(int idRadnik, String ime, String prezime, String jmbg, String korisnickoIme, String brojTelefona, String sifra) {
     	try {

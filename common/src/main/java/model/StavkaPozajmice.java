@@ -36,7 +36,6 @@ public class StavkaPozajmice implements ApstraktniDomenskiObjekat {
      * @param vraceno true ako je knjiga vracena
      * @param kazna iznos kazne, ne sme biti negativan
      * @param knjiga pozajmljena knjiga, ne sme biti null
-     * @throws Exception ako je neka od vrednosti nevalidna
      */
     public StavkaPozajmice(int rb, Pozajmica pozajmica, Date datumVracanja, boolean vraceno, int kazna, Knjiga knjiga) {
     	

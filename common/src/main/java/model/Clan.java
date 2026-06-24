@@ -36,7 +36,6 @@ public class Clan implements ApstraktniDomenskiObjekat {
      * @param email email adresa clana
      * @param brojTelefona kontakt telefon clana
      * @param tipClanstva tip clanstva dodeljen ovom clanu
-     * @throws Exception ako je neka od vrednosti nevalidna
      */
     public Clan(int idClan, String ime, String prezime, String email, String brojTelefona, TipClanstva tipClanstva) {
     	try {
