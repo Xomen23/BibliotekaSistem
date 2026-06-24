@@ -55,8 +55,7 @@ public class Komunikacija {
     }
 
     public Radnik login(String username, String pass) {
-        try{
-        
+        try {
             Radnik r = new Radnik();
             r.setKorisnickoIme(username);
             r.setSifra(pass);
@@ -66,14 +65,11 @@ public class Komunikacija {
             Odgovor odg = (Odgovor) primlalac.primi();
             r = (Radnik) odg.getOdgovor();
             return r;
-        
-        }catch(SocketException ex){
-            System.out.println("SERVER JE UGASEN!");
+        } catch (Exception ex) {
+            System.out.println("Greska prilikom login-a ili je server ugasen!");
             ex.printStackTrace();
             return null;
         }  
-        
-        
     }
 
     public List<Radnik> ucitajRadnike() {

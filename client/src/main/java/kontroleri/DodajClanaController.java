@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package kontroleri;
 
 import cordinator.Cordinator;
@@ -45,7 +41,6 @@ public class DodajClanaController {
             }
 
             private void dodaj() {
-                
                 String ime = dcf.getjTextFieldIme().getText().trim();
                 String prezime = dcf.getjTextFieldPrezime().getText().trim();
                 String email = dcf.getjTextFieldEmail().getText().trim();
@@ -80,36 +75,15 @@ public class DodajClanaController {
                     return;
                 }
 
-                
-
-                // Dalje kod za kreiranje člana, npr. unos u bazu ili nešto drugo
-
-                
-                
-                /*
-                if(ime == null || ime.isEmpty() || prezime == null || prezime.isEmpty() || email == null || email.isEmpty() || !email.contains("@") ||  brojTelefona == null || brojTelefona.isEmpty() || tc == null){
-                    JOptionPane.showMessageDialog(dcf, "Sistem ne moze da kreira clana", "GRESKA", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }else{
-                    JOptionPane.showMessageDialog(dcf, "Sistem je kreirao clana", "USPEH", JOptionPane.INFORMATION_MESSAGE);
-                }
-                */
-                
-                Clan c = new Clan(-1,ime,prezime,email,brojTelefona, tc);
-                JOptionPane.showMessageDialog(dcf, "Sistem je kreirao clana", "USPEH", JOptionPane.INFORMATION_MESSAGE);
-                
-                
-                try{
-                
+                try {
+                    Clan c = new Clan(-1, ime, prezime, email, brojTelefona, tc);
                     Komunikacija.getInstance().dodajClana(c);
                     JOptionPane.showMessageDialog(dcf, "Sistem je zapamtio clana", "USPEH", JOptionPane.INFORMATION_MESSAGE);
                     dcf.dispose();
-                    
-                }catch(Exception exc){
+                } catch (Exception exc) {
                     JOptionPane.showMessageDialog(dcf, "Sistem ne moze da zapamti clana", "GRESKA", JOptionPane.ERROR_MESSAGE);
                     exc.printStackTrace();
                 }
-                
             }
         });
         
@@ -120,7 +94,6 @@ public class DodajClanaController {
             }
 
             private void izmeni() {
-
                 int id = dcf.getId();
                 String ime = dcf.getjTextFieldIme().getText().trim();
                 String prezime = dcf.getjTextFieldPrezime().getText().trim();
@@ -156,27 +129,20 @@ public class DodajClanaController {
                     return;
                 }
 
-                
-                Clan c = new Clan(id,ime,prezime,email,brojTelefona,tc);
-
-                try{
+                try {
+                    Clan c = new Clan(id, ime, prezime, email, brojTelefona, tc);
                     Komunikacija.getInstance().azurirajClana(c);
                     JOptionPane.showMessageDialog(dcf, "Sistem je zapamtio clana", "USPEH", JOptionPane.INFORMATION_MESSAGE);
                     dcf.dispose();
-                    
-                }catch(Exception exc){
+                } catch (Exception exc) {
                     JOptionPane.showMessageDialog(dcf, "Sistem ne moze da zapamti clana", "GRESKA", JOptionPane.ERROR_MESSAGE);
                     exc.printStackTrace();
                 }
-                
             }
         });
-        
-        
     }
 
     private void pripremiFormu(FormaMod formaMod) {
-        
         switch (formaMod) {
             case DODAJ:
                 dcf.getjButtonAzuriraj().setVisible(false);
@@ -194,31 +160,22 @@ public class DodajClanaController {
                 dcf.getjTextFieldEmail().setText(c.getEmail());
                 dcf.getjTextFieldBrojTelefona().setText(c.getBrojTelefona());
                 dcf.setId(c.getIdClan());
-                dcf.getjComboBoxTipClanstva().setSelectedItem(c.getTipClanstva()); // proveri 
-                
+                dcf.getjComboBoxTipClanstva().setSelectedItem(c.getTipClanstva());
                 break;
-
             default:
-                System.out.println("GRESKA");;
+                System.out.println("GRESKA");
         }
-        
     }
 
     private void popuniComboBox() {
-        
-        List<TipClanstva> clanstva = new ArrayList<>();
-        clanstva = Komunikacija.getInstance().ucitajTipClanstva();
-        
-        for (TipClanstva tc : clanstva) {
-            
-            dcf.getjComboBoxTipClanstva().addItem(tc);
-            
+        try {
+            List<TipClanstva> clanstva = Komunikacija.getInstance().ucitajTipClanstva();
+            for (TipClanstva tc : clanstva) {
+                dcf.getjComboBoxTipClanstva().addItem(tc);
+            }
+        } catch (Exception exc) {
+            JOptionPane.showMessageDialog(dcf, "Sistem ne moze da ucita tipove clanstva sa servera.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+            exc.printStackTrace();
         }
-        
-        
     }
-    
-    
-    
-    
 }

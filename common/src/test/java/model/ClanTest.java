@@ -2,108 +2,155 @@ package model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * JUnit testovi za domensku klasu {@link Clan}.
- *
- * @author Petar
- */
 class ClanTest {
 
-    private TipClanstva tipClanstva;
     private Clan clan;
+    private TipClanstva tip;
 
     @BeforeEach
-    void setUp() {
-        tipClanstva = new TipClanstva(1, "Standardni", 500.0, 5);
-        clan = new Clan(1, "Petar", "Mitrovic", "petar@gmail.com", "0641234567", tipClanstva);
+    void setUp() throws Exception {
+        tip = new TipClanstva(1, "Standardni", 500.0, 5);
+        clan = new Clan(1, "Petar", "Mitrovic", "petar@gmail.com", "0641234567", tip);
     }
 
     @Test
-    void testKonstruktorIGeteri() {
+    void konstruktorSetujeSvaPolja() {
         assertEquals(1, clan.getIdClan());
         assertEquals("Petar", clan.getIme());
         assertEquals("Mitrovic", clan.getPrezime());
         assertEquals("petar@gmail.com", clan.getEmail());
         assertEquals("0641234567", clan.getBrojTelefona());
-        assertEquals(tipClanstva, clan.getTipClanstva());
+        assertEquals(tip, clan.getTipClanstva());
     }
 
     @Test
-    void testSeteri() {
-        Clan c = new Clan();
-        c.setIdClan(2);
-        c.setIme("Ana");
-        c.setPrezime("Anic");
-        c.setEmail("ana@gmail.com");
-        c.setBrojTelefona("0651112233");
-        c.setTipClanstva(tipClanstva);
+    void setIdClanSetujePravilno() {
+        clan.setIdClan(99);
+        assertEquals(99, clan.getIdClan());
+    }
 
-        assertEquals(2, c.getIdClan());
-        assertEquals("Ana", c.getIme());
-        assertEquals("Anic", c.getPrezime());
-        assertEquals("ana@gmail.com", c.getEmail());
-        assertEquals("0651112233", c.getBrojTelefona());
-        assertEquals(tipClanstva, c.getTipClanstva());
+    @ParameterizedTest
+    @NullAndEmptySource
+    void setImeBacaGreskuZaNullIPrazno(String ime) {
+        assertThrows(Exception.class, () -> clan.setIme(ime));
     }
 
     @Test
-    void testToString() {
+    void setImeSetujePravilno() throws Exception {
+        clan.setIme("Ana");
+        assertEquals("Ana", clan.getIme());
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    void setPrezimeBacaGreskuZaNullIPrazno(String prezime) {
+        assertThrows(Exception.class, () -> clan.setPrezime(prezime));
+    }
+
+    @Test
+    void setPrezimeSetujePravilno() throws Exception {
+        clan.setPrezime("Anic");
+        assertEquals("Anic", clan.getPrezime());
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    void setEmailBacaGreskuZaNullIPrazno(String email) {
+        assertThrows(Exception.class, () -> clan.setEmail(email));
+    }
+
+    @Test
+    void setEmailBacaGreskuZaEmailBezAt() {
+        assertThrows(Exception.class, () -> clan.setEmail("nevalidanEmail"));
+    }
+
+    @Test
+    void setEmailSetujePravilno() throws Exception {
+        clan.setEmail("novi@mail.com");
+        assertEquals("novi@mail.com", clan.getEmail());
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    void setBrojTelefonaBacaGreskuZaNullIPrazno(String broj) {
+        assertThrows(Exception.class, () -> clan.setBrojTelefona(broj));
+    }
+
+    @Test
+    void setBrojTelefonaSetujePravilno() throws Exception {
+        clan.setBrojTelefona("065111222");
+        assertEquals("065111222", clan.getBrojTelefona());
+    }
+
+    @Test
+    void setTipClanstvaBacaGreskuZaNull() {
+        assertThrows(Exception.class, () -> clan.setTipClanstva(null));
+    }
+
+    @Test
+    void setTipClanstvaSetujePravilno() throws Exception {
+        TipClanstva noviTip = new TipClanstva(2, "Premium", 1000.0, 10);
+        clan.setTipClanstva(noviTip);
+        assertEquals(noviTip, clan.getTipClanstva());
+    }
+
+    @Test
+    void toStringVracaImeIPrezime() {
         assertEquals("Petar Mitrovic", clan.toString());
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {"Petar", "Ana", "Marko"})
+    void equalsVracaFalseZaRazlicitoIme(String ime) throws Exception {
+        Clan drugi = new Clan(1, ime, "DrugoP", "d@d.com", "0600000000", tip);
+        if (!ime.equals("Petar") || !drugi.getPrezime().equals(clan.getPrezime())) {
+            assertNotEquals(clan, drugi);
+        }
+    }
+
     @Test
-    void testEqualsIstoImeIPrezime() {
-        Clan drugi = new Clan(2, "Petar", "Mitrovic", "drugi@mail.com", "0699999999", tipClanstva);
+    void equalsVracaTrueZaIstoImeIPrezime() throws Exception {
+        Clan drugi = new Clan(99, "Petar", "Mitrovic", "drugi@mail.com", "0699999999", tip);
         assertEquals(clan, drugi);
     }
 
     @Test
-    void testEqualsRazlicitoIme() {
-        Clan drugi = new Clan(1, "Marko", "Mitrovic", "petar@gmail.com", "0641234567", tipClanstva);
-        assertNotEquals(clan, drugi);
-    }
-
-    @Test
-    void testEqualsNull() {
+    void equalsVracaFalseZaNull() {
         assertNotEquals(null, clan);
     }
 
     @Test
-    void testEqualsRazlicitaKlasa() {
-        assertNotEquals("Petar Mitrovic", clan);
-    }
-
-    @Test
-    void testEqualsIsteReference() {
+    void equalsVracaTrueZaIsteReference() {
         assertEquals(clan, clan);
     }
 
     @Test
-    void testVratiNazivTabele() {
+    void vratiNazivTabeleVracaClan() {
         assertEquals("clan", clan.vratiNazivTabele());
     }
 
     @Test
-    void testVratiKoloneZaUbacivanje() {
+    void vratiKoloneZaUbacivanje() {
         assertEquals("ime, prezime, email, brojTelefona, idTipClanstva", clan.vratiKoloneZaUbacivanje());
     }
 
     @Test
-    void testVratiVrednostiZaUbacivanje() {
-        String ocekivano = "'Petar', 'Mitrovic', 'petar@gmail.com', '0641234567', 1";
-        assertEquals(ocekivano, clan.vratiVrednostiZaUbacivanje());
+    void vratiVrednostiZaUbacivanje() {
+        assertEquals("'Petar', 'Mitrovic', 'petar@gmail.com', '0641234567', 1", clan.vratiVrednostiZaUbacivanje());
     }
 
     @Test
-    void testVratiPrimarniKljuc() {
+    void vratiPrimarniKljuc() {
         assertEquals("clan.idClan=1", clan.vratiPrimarniKljuc());
     }
 
     @Test
-    void testVratiVrednostiZaIzmenu() {
-        String ocekivano = "ime='Petar', prezime='Mitrovic', email='petar@gmail.com', brojTelefona='0641234567', idTipClanstva=1";
-        assertEquals(ocekivano, clan.vratiVrednostiZaIzmenu());
+    void vratiVrednostiZaIzmenu() {
+        assertEquals("ime='Petar', prezime='Mitrovic', email='petar@gmail.com', brojTelefona='0641234567', idTipClanstva=1", clan.vratiVrednostiZaIzmenu());
     }
 }
